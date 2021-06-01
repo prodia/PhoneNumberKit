@@ -167,9 +167,7 @@ open class PhoneNumberTextField: UITextField, UITextFieldDelegate {
 
     // MARK: Status
 
-    public var currentRegion: String {
-        return self.partialFormatter.currentRegion
-    }
+    public var currentRegion: String = PhoneNumberKit.defaultRegionCode()
 
     public var nationalNumber: String {
         let rawNumber = self.text ?? String()
@@ -497,6 +495,14 @@ open class PhoneNumberTextField: UITextField, UITextFieldDelegate {
             self.updateFlag()
             self.updatePlaceholder()
         }
+    }
+    
+    public func setCountryCode(_ code: String) {
+        currentRegion = code
+        _defaultRegion = code
+        partialFormatter.defaultRegion = code
+        updateFlag()
+        updatePlaceholder()
     }
 }
 
